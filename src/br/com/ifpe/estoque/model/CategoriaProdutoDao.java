@@ -34,24 +34,25 @@ public class CategoriaProdutoDao {
 		String codigo = categoriaProduto != null ? categoriaProduto.getCodigo() : "";
 		String descricao = categoriaProduto != null ? categoriaProduto.getDescricao() : "";
 		if (!codigo.equals("") && descricao.equals("")) {
-		 query = manager.createQuery("FROM CategoriaProduto WHERE codigo LIKE :paramCodigo ORDER BY descricao");
-		 query.setParameter("paramCodigo", "%" + codigo + "%");
+			query = manager.createQuery("FROM CategoriaProduto WHERE codigo LIKE :paramCodigo ORDER BY descricao");
+			query.setParameter("paramCodigo", "%" + codigo + "%");
 		} else if (codigo.equals("") && !descricao.equals("")) {
-		 query = manager.createQuery("FROM CategoriaProduto WHERE descricao LIKE :paramDescricao ORDER BY descricao");
-		 query.setParameter("paramDescricao", "%" + descricao + "%");
+			query = manager
+					.createQuery("FROM CategoriaProduto WHERE descricao LIKE :paramDescricao ORDER BY descricao");
+			query.setParameter("paramDescricao", "%" + descricao + "%");
 		} else if (!codigo.equals("") && !descricao.equals("")) {
-		 query = manager.createQuery(
-		 "FROM CategoriaProduto WHERE codigo LIKE :paramCodigo AND descricao LIKE :paramDescricao ORDER BY descricao");
-		 query.setParameter("paramCodigo", "%" + codigo + "%");
-		 query.setParameter("paramDescricao", "%" + descricao + "%");
+			query = manager.createQuery(
+					"FROM CategoriaProduto WHERE codigo LIKE :paramCodigo AND descricao LIKE :paramDescricao ORDER BY descricao");
+			query.setParameter("paramCodigo", "%" + codigo + "%");
+			query.setParameter("paramDescricao", "%" + descricao + "%");
 		} else {
-		 query = manager.createQuery("FROM CategoriaProduto ORDER BY descricao");
+			query = manager.createQuery("FROM CategoriaProduto ORDER BY descricao");
 		}
 		List<CategoriaProduto> lista = query.getResultList();
 		manager.close();
 		factory.close();
 		return lista;
-		}
+	}
 
 	public CategoriaProduto buscarPorId(int id) {
 		CategoriaProduto obj = null;
@@ -68,6 +69,17 @@ public class CategoriaProdutoDao {
 		EntityManager manager = factory.createEntityManager();
 		manager.getTransaction().begin();
 		manager.merge(categoriaProduto);
+		manager.getTransaction().commit();
+		manager.close();
+		factory.close();
+	}
+
+	public void remover(int id) {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+		EntityManager manager = factory.createEntityManager();
+		CategoriaProduto categoriaProduto = manager.find(CategoriaProduto.class, id);
+		manager.getTransaction().begin();
+		manager.remove(categoriaProduto);
 		manager.getTransaction().commit();
 		manager.close();
 		factory.close();

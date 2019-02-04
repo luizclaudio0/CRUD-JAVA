@@ -26,10 +26,19 @@
 		</div>
 		<div class="form-group">
 			<label for="inputCodigo">Descrição</label> <input type="text"
-				id="inputCodigo" class="form-control" name="descrição"
+				id="inputCodigo" class="form-control" name="descricao"
 				style="width: 100px;" maxlength="5" required="required"
 				value="${produto.descricao}" />
 		</div>
+		<label for="categoriaProduto">Categoria</label> <br /> <select
+			id="categoriaProduto" name="categoriaProduto">
+			<option value="">Selecione</option>
+			<c:forEach items="${listaCategoriaProduto}" var="obj">
+				<option value="${obj.id}"
+					<c:if test="${obj.id eq produto.categoriaProduto.id}">selected="selected"</c:if>>
+					${obj.descricao}</option>
+			</c:forEach>
+		</select>
 		<div class="form-group">
 			<label for="inputCodigo">PrecoCusto</label> <input type="text"
 				id="inputCodigo" class="form-control" name="precoCusto"
@@ -46,8 +55,8 @@
 			<label for="inputCodigo">Garantia</label> <input type="text"
 				id="inputCodigo" class="form-control" name="garantia"
 				style="width: 100px;" required="required"
-				value="<fmt:formatDate value="${produto.garantia}"
-						pattern="dd/MM/yyyy" />" />
+				value="<fmt:formatDate value='$
+{produto.garantia}' pattern='dd/MM/yyyy' "/> 
 		</div>
 		<div class="form-group">
 			<label for="inputCodigo">Imagem</label> <input type="file"

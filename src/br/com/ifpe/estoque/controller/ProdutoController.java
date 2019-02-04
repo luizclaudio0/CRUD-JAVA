@@ -17,7 +17,12 @@ import br.com.ifpe.util.Util;
 @Controller
 public class ProdutoController {
 	@RequestMapping("/produto/add")
-	public String adicionarProduto() {
+	public String adicionarProduto(Model model) {
+		
+		// CÃ³digo para popular o combo de categoria de produto
+		CategoriaProdutoDao dao = new CategoriaProdutoDao();
+		List<CategoriaProduto> listaCategoriaProduto = dao.listarCategoria(null);
+		model.addAttribute("listaCategoriaProduto", listaCategoriaProduto);
 		return "produto/incluirProduto";
 	}
 
@@ -28,7 +33,7 @@ public class ProdutoController {
 		}
 		ProdutoDao dao = new ProdutoDao();
 		dao.salvar(produto);
-		model.addAttribute("mensagem", "Produto Incluído com Sucesso");
+		model.addAttribute("mensagem", "Produto Incluï¿½do com Sucesso");
 		return "produto/incluirProduto";
 	}
 

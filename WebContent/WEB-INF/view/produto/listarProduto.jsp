@@ -79,7 +79,7 @@
 				<td style="width: 25%; vertical-align: middle;">${produto.imagem}</td>
 
 				<td style="vertical-align: middle; text-align: center;"><a
-					href="edit?id=${produto.id}">Alterar</a> &nbsp; &nbsp;
+					href="edit?id=${produto.id}">Alterar</a> &nbsp; &nbsp;<br>
 					<a href="delete?id=${produto.id}">Remover</a> &nbsp; &nbsp;
 					</td>
 			</tr>

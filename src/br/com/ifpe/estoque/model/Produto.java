@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "produto")
 public class Produto {
@@ -16,6 +20,10 @@ public class Produto {
 	private int id;
 	@Column
 	private String codigo;
+	
+	@ManyToOne
+	@JoinColumn(name = "categoria_id")
+	private CategoriaProduto categoriaProduto;
 	@Column
 	private String descricao;
 	
@@ -26,6 +34,7 @@ public class Produto {
 	private double precoVenda;
 	
 	@Column
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date garantia;
 	
 	@Column

@@ -11,7 +11,7 @@
 	<h3>Filtro Produtos</h3>
 	<hr>
 	<div>
-		<form action="list">
+		<form action="filter">
 			<div class="form-group">
 				<label for="inputCodigo">Código</label> <input type="text"
 					id="inputCodigo" class="form-control" name="codigo"
@@ -51,8 +51,11 @@
 			<tr>
 				<td style="vertical-align: middle; text-align: center;">${categoriaProduto.codigo}</td>
 				<td style="vertical-align: middle;">${categoriaProduto.descricao}</td>
-				<td style="vertical-align: middle;"><a href="alterar">alterar</td>
-				
+				<td style="vertical-align: middle; text-align: center;"><a
+					href="edit?id=${categoriaProduto.id}">Alterar</a> &nbsp; &nbsp;<br>
+					<a href="delete?id=${categoriaProduto.id}">Remover</a> &nbsp; &nbsp;
+					</td>
+
 			</tr>
 		</c:forEach>
 	</table>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.ifpe.estoque.model.CategoriaProduto;
 import br.com.ifpe.estoque.model.CategoriaProdutoDao;
+import br.com.ifpe.estoque.model.ProdutoDao;
 
 @Controller
 public class CategoriaProdutoController {
@@ -23,34 +24,48 @@ public class CategoriaProdutoController {
 
 		CategoriaProdutoDao dao = new CategoriaProdutoDao();
 		dao.salvar(categoriaProduto);
-		model.addAttribute("mensagem", "Categoria Produto Incluído com Sucesso");
+		model.addAttribute("mensagem", "Categoria Produto Incluï¿½do com Sucesso");
 		return "categoriaProduto/incluirCategoriaProdutoSucesso";
 	}
 
 	@RequestMapping("/categoriaProduto/list")
-	public String listarCategoriaProduto(CategoriaProduto categoriaProduto,Model model) {
+	public String listarCategoriaProduto(CategoriaProduto categoriaProduto, Model model) {
 		CategoriaProdutoDao dao = new CategoriaProdutoDao();
-		List<CategoriaProduto> listarCategoriaProduto = dao.listarCategoria(categoriaProduto);
+		List<CategoriaProduto> listarCategoriaProduto = dao.listarCategoria(null);
 		model.addAttribute("listaCategoriaProduto", listarCategoriaProduto);
 		return "categoriaProduto/listarCategoriaProduto";
 
 	}
 
-
+	@RequestMapping("/categoriaProduto/filter")
+	public String filtrarCategoriaProduto(CategoriaProduto categoriaProduto, Model model) {
+		CategoriaProdutoDao dao = new CategoriaProdutoDao();
+		List<CategoriaProduto> listaCategoriaProduto = dao.listarCategoria(categoriaProduto);
+		model.addAttribute("listaCategoriaProduto", listaCategoriaProduto);
+		return "categoriaProduto/listarCategoriaProduto";
+	}
 
 	@RequestMapping("/categoriaProduto/edit")
 	public String editCategoria(@RequestParam("id") Integer id, Model model) {
 		CategoriaProdutoDao dao = new CategoriaProdutoDao();
 		CategoriaProduto categoriaProduto = dao.buscarPorId(id);
-		model.addAttribute("Categoriaproduto", categoriaProduto);
-		return "produto/alterarProduto";
+		model.addAttribute("categoriaProduto", categoriaProduto);
+		return "categoriaProduto/alterarCategoriaProduto";
 	}
+
 
 	@RequestMapping("/categoriaProduto/update")
 	public String updateCategoria(CategoriaProduto categoriaProduto, Model model) {
 		CategoriaProdutoDao dao = new CategoriaProdutoDao();
 		dao.alterarCategoria(categoriaProduto);
 		model.addAttribute("mensagem", "Categoria Produto Alterado com Sucesso !");
+		return "forward:list";
+	}
+	@RequestMapping("/categoriaProduto/delete")
+	public String delete(@RequestParam("id") Integer id, Model model) {
+		CategoriaProdutoDao dao = new CategoriaProdutoDao();
+		dao.remover(id);
+		model.addAttribute("mensagem", "CategoriaProduto Removido com Sucesso");
 		return "forward:list";
 	}
 

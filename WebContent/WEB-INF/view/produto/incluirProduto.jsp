@@ -28,6 +28,13 @@
 		<p>
 			Descrição: <br /> <input type="text" name="descricao" />
 		</p>
+		<label for="categoriaProduto">Categoria</label> <br /> <select
+			id="categoriaProduto" name="categoriaProduto">
+			<option value="">Selecione</option>
+			<c:forEach items="${listaCategoriaProduto}" var="obj">
+				<option value="${obj.id}">${obj.descricao}</option>
+			</c:forEach>
+		</select>
 		<p>
 			Preco de Custo: <br /> <input type="text" name="precoCusto" />
 		</p>
