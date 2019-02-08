@@ -20,6 +20,7 @@ public class ProdutoController {
 	public String adicionarProduto(Model model) {
 		
 		// Código para popular o combo de categoria de produto
+		
 		CategoriaProdutoDao dao = new CategoriaProdutoDao();
 		List<CategoriaProduto> listaCategoriaProduto = dao.listarCategoria(null);
 		model.addAttribute("listaCategoriaProduto", listaCategoriaProduto);
