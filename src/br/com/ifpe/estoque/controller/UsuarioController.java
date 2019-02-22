@@ -2,18 +2,30 @@ package br.com.ifpe.estoque.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.ifpe.estoque.model.Produto;
-import br.com.ifpe.estoque.model.ProdutoDao;
 import br.com.ifpe.estoque.model.Usuario;
 import br.com.ifpe.estoque.model.UsuarioDao;
 
 @Controller
 public class UsuarioController {
+
+	@RequestMapping("efetuarLogin")
+	public String efetuarLogin(Usuario usuario, HttpSession session, Model model) {
+	UsuarioDao dao = new UsuarioDao();
+	Usuario usuarioLogado = dao.buscarUsuario(usuario);
+	if (usuarioLogado != null) {
+	session.setAttribute("usuarioLogado", usuarioLogado);
+	return "menu";
+	}
+	model.addAttribute("msg", "Não foi encontrado um usuário com o login e senha informados.");
+	return "index";
+	}
 
 	@RequestMapping("/usuario/add")
 	public String adicionarUsuario() {

@@ -16,11 +16,6 @@ import br.com.ifpe.util.Util;
 
 @Controller
 public class ProdutoController {
-	@RequestMapping("index")
-	public String index() {
-		return "produto/index";
-	}
-	
 	@RequestMapping("/produto/add")
 	public String adicionarProduto(Model model) {
 		
